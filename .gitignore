@@ -1,0 +1,40 @@
+# Python bytecode
+*.pyc
+*.pyo
+__pycache__/
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.sqlite3
+db.sqlite3
+
+# Media and static files
+/media
+/staticfiles
+
+# Environments
+.env
+*.env
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+media/
+static/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+
+# macOS
+.DS_Store
+
+# Node modules (if using npm/yarn for frontend)
+node_modules/
