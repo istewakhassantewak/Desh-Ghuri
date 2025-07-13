@@ -1,5 +1,4 @@
-# pac-and-go
-
+# Desh Ghuri
 This document provides step-by-step instructions to set up and run the project.
 
 ## Prerequisites
@@ -12,8 +11,8 @@ This document provides step-by-step instructions to set up and run the project.
 
 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/pac-and-go.git
-cd pac-and-go
+git clone https://github.com/YOUR_USERNAME/Desh-Ghuri.git
+cd Desh-Ghuri
 ```
 
 2. Create and activate virtual environment
