@@ -1,0 +1,419 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+  <!-- Custom Styles -->
+  <style>
+    /* Carousel improvements */
+    #hero .carousel-item {
+      height: 80vh;
+      position: relative;
+    }
+    
+    #hero .carousel-item img {
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Enhanced card design */
+    .package-card {
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+      height: 100%;
+      background: #fff;
+      border: none;
+      position: relative;
+    }
+    
+    .package-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+    
+    .package-card-img {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .package-card-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .package-duration {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .package-duration i {
+      color: var(--bs-primary);
+    }
+    
+    .package-price {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: var(--bs-primary);
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      color: #fff;
+    }
+    
+    .package-card-body {
+      padding: 20px;
+      background: #fff;
+    }
+    
+    .package-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #333;
+    }
+    
+    .package-location {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .package-location i {
+      color: #dc3545;
+      font-size: 16px;
+    }
+    
+    .package-meta {
+      display: flex;
+      gap: 15px;
+      font-size: 14px;
+      color: #555;
+    }
+    
+    .package-meta span {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .package-meta i {
+      color: #666;
+      font-size: 15px;
+    }
+    
+    .view-details-btn {
+      display: block;
+      margin: 15px auto 0;
+      width: fit-content;
+      min-width: 120px;
+      padding: 8px 20px;
+      border: 1px solid var(--bs-primary);
+      border-radius: 4px;
+      transition: all 0.3s;
+      background: transparent;
+      color: var(--bs-primary);
+      text-align: center;
+    }
+    
+    .view-details-btn:hover {
+      background: var(--bs-primary);
+      color: #fff;
+    }
+    
+    /* Search section improvements */
+    .search-section {
+      margin-top: -50px;
+      position: relative;
+      z-index: 100;
+    }
+    
+    .search-card {
+      background: #fff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Feature cards improvement */
+    .feature-card {
+      padding: 30px 20px;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      height: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(var(--bs-primary-rgb), 0.1);
+      color: var(--bs-primary);
+    }
+    
+    /* Become a guide section */
+    .become-guide {
+      background-color: #f8f9fa;
+    }
+    
+    .become-guide img {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .feature-list {
+      padding-left: 0;
+      list-style: none;
+      margin-top: 20px;
+    }
+    
+    .feature-list li {
+      padding: 8px 0;
+    }
+  </style>
+
+  <!-- Hero Section with Carousel -->
+  <section id="hero" class="hero-section">
+    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="overlay"></div>
+          <img src="https://images.pexels.com/photos/2161467/pexels-photo-2161467.jpeg" class="d-block w-100" alt="Cox's Bazar Beach">
+          <div class="carousel-caption">
+            <h1 class="display-4 fw-bold text-white">Discover the Beauty of Bangladesh</h1>
+            <p class="lead">Explore stunning beaches, lush forests, and vibrant cultures with our expert guides</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="overlay"></div>
+          <img src="https://images.pexels.com/photos/3225531/pexels-photo-3225531.jpeg" class="d-block w-100" alt="Sundarban Mangrove Forest">
+          <div class="carousel-caption">
+            <h1 class="display-4 fw-bold text-white">Adventure Awaits in Sundarban</h1>
+            <p class="lead">Experience the world's largest mangrove forest with our experienced tour guides</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="overlay"></div>
+          <img src="https://images.pexels.com/photos/2387873/pexels-photo-2387873.jpeg" class="d-block w-100" alt="Sylhet Tea Gardens">
+          <div class="carousel-caption">
+            <h1 class="display-4 fw-bold text-white">Explore the Tea Gardens of Sylhet</h1>
+            <p class="lead">Immerse yourself in the lush greenery and cultural heritage of Bangladesh's tea country</p>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Search Section -->
+  <section class="search-section py-5">
+    <div class="container">
+      <div class="search-card">
+        <form method="GET" action="{% url 'home' %}" id="filterForm" class="filter-form">
+          <div class="row">
+            <div class="col-md-5">
+              <label for="filterLocation" class="form-label">Filter by Location</label>
+              <select class="form-select" id="filterLocation" name="location" onchange="this.form.submit()">
+                <option value="">All Locations</option>
+                {% for location in tour_locations %}
+                  <option value="{{ location }}" {% if request.GET.location == location %}selected{% endif %}>{{ location }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div class="col-md-5">
+              <label for="filterDate" class="form-label">Filter by Date</label>
+              <input type="date" class="form-control" id="filterDate" name="date" value="{{ request.GET.date|default:'' }}" onchange="this.form.submit()">
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+              {% if request.GET.location or request.GET.date %}
+                <a href="{% url 'home' %}" class="btn btn-outline-secondary w-100">Clear</a>
+              {% endif %}
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Packages Section -->
+  <section class="featured-packages py-5">
+    <div class="container">
+      <div class="section-header text-center mb-5">
+        <h2 class="display-5 fw-bold">Tour Packages</h2>
+        <p class="text-muted">Explore our most popular and highly-rated travel experiences</p>
+      </div>
+      
+      <div class="row g-4" id="packagesContainer">
+        {% for package in packages %}
+        <div class="col-md-6 col-lg-4 package-item">
+          <div class="package-card">
+            <div class="package-card-img">
+              <img src="{{ package.image.url }}" alt="{{ package.title }}">
+              <div class="package-price">৳{{ package.price }}</div>
+              <div class="package-duration">
+                <i class="fas fa-clock"></i>
+                {{ package.start_date|date:"d M" }} - {{ package.end_date|date:"d M" }}
+              </div>
+            </div>
+            <div class="package-card-body">
+              <h3 class="package-title">{{ package.title }}</h3>
+              <p class="package-location">
+                <i class="fas fa-map-marker-alt"></i>
+                {{ package.main_location }}
+              </p>
+              <div class="package-meta">
+                {% with first_location=package.location.first %}
+                {% if first_location %}
+                <span>
+                  <i class="fas fa-hotel"></i>
+                  {{ first_location.hotel }}
+                </span>
+                {% endif %}
+                {% endwith %}
+                <span>
+                  <i class="fas fa-utensils"></i>
+                  {% if package.complementary == 'breakfast' %}
+                    Breakfast
+                  {% elif package.complementary == 'all_meals' %}
+                    All Meals
+                  {% elif package.complementary == 'breakfast_lunch' %}
+                    Breakfast & Lunch
+                  {% endif %}
+                </span>
+              </div>
+              <a href="{% url 'package-details' package.id %}" class="view-details-btn">View Details</a>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+          <div class="no-results">
+            <i class="fas fa-search"></i>
+            <h3>No packages found</h3>
+            <p>Try adjusting your filters or search for a different location</p>
+            <a href="{% url 'home' %}" class="btn btn-outline-primary mt-3">Show All Packages</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <div class="text-center mt-5">
+        {% comment %} <a href="{% url 'packages' %}" class="btn btn-outline-primary btn-lg">View All Packages</a> {% endcomment %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us Section -->
+  <section class="why-choose-us py-5 bg-light">
+    <div class="container">
+      <div class="section-header text-center mb-5">
+        <h2 class="display-5 fw-bold">Why Choose Desh Ghuri?</h2>
+        <p class="text-muted">We're committed to providing the best travel experience</p>
+      </div>
+      
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="feature-card text-center">
+            <div class="feature-icon mb-3">
+              <i class="fas fa-user-tie fa-3x text-primary"></i>
+            </div>
+            <h3>Expert Local Guides</h3>
+            <p>Our tour guides are certified professionals with deep knowledge of local culture, history, and hidden gems.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="feature-card text-center">
+            <div class="feature-icon mb-3">
+              <i class="fas fa-hand-holding-usd fa-3x text-primary"></i>
+            </div>
+            <h3>Best Price Guarantee</h3>
+            <p>We offer the most competitive prices for premium travel experiences with no hidden costs.</p>
+          </div>
+        </div>
+        
+        <div class="col-md-4">
+          <div class="feature-card text-center">
+            <div class="feature-icon mb-3">
+              <i class="fas fa-shield-alt fa-3x text-primary"></i>
+            </div>
+            <h3>Safe & Secure</h3>
+            <p>Your safety is our priority. We follow strict safety protocols and provide 24/7 support during your trip.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Become a Guide Section -->
+  <section class="become-guide py-5">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <img src="https://images.pexels.com/photos/1813922/pexels-photo-1813922.jpeg" alt="Tour Guide" class="img-fluid rounded-3">
+        </div>
+        <div class="col-lg-6">
+          <div class="p-4">
+            <h2 class="display-6 fw-bold mb-3">Become a Tour Guide</h2>
+            <p class="lead">Share your passion for Bangladesh and earn by creating unique travel experiences.</p>
+            <ul class="feature-list">
+              <li><i class="fas fa-check-circle text-success me-2"></i> Create and manage your own tour packages</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i> Set your own prices and availability</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i> Showcase your expertise and knowledge</li>
+              <li><i class="fas fa-check-circle text-success me-2"></i> Connect with travelers from around the world</li>
+            </ul>
+            <a href="{% url 'home' %}" class="btn btn-primary btn-lg mt-3">Register as Guide</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+{% endblock %}
