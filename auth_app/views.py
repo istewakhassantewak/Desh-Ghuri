@@ -164,27 +164,28 @@ def  handle_login(request):
     For GET requests, it renders the login page.
     """
     if request.method ==  "POST":
-        data=request.POST
+        data = request.POST
 
-        email=data.get('email')
-        password=data.get('password')
+        email = data.get('email')
+        password = data.get('password')
+        selected_role = data.get('role')  # 'traveler' or 'tour_guide'
 
-
-        user=authenticate(email=email,password=password)
+        user = authenticate(email=email, password=password)
         if user is not None:
-            auth_login(request,user)
-            print("logged in")
-           
-            return redirect('home')
-        
-        
-        
+            # Check user_type matches selected role
+            if selected_role == user.user_type:
+                auth_login(request, user)
+                print("logged in as correct role")
+                return redirect('home')
+            else:
+                messages.error(request, 'Selected role does not match your account type.')
+                print("role mismatch")
+                return redirect('login')
         else:
-            messages.error(request,'Username or Password is incorrect')
+            messages.error(request, 'Username or Password is incorrect')
             print("not in")
-
             return redirect('login')
-    return render ( request, 'login.html')
+    return render(request, 'login.html')
 
 
 def handlelogout(request):
